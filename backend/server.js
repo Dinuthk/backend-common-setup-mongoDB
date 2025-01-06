@@ -11,6 +11,10 @@ connectDB(); // Connect to the database;
 
 const app = express();
 
+//body paser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {    //app.get() defines a GET route that responds to incoming GET requests.
     res.send("API is running"); //res.send() sends a response back to the client.
 });
