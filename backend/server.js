@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./config/db.js";
-import products from "./data/products.js";
+import { notFound,errorHandler } from "./middleware/errorMidleware.js";
+import productsRoutes from "./routes/productRoutes.js";
+import usersRoutes from "./routes/userRoutes.js";
 //const port = 5000;
 const port = process.env.PORT || 5000;
 connectDB(); // Connect to the database;
@@ -13,27 +15,11 @@ app.get("/", (req, res) => {    //app.get() defines a GET route that responds to
     res.send("API is running"); //res.send() sends a response back to the client.
 });
 
-app.get("/api/products", (req, res) => {
-    res.send(products);
-})
+app.use("/api/products", productsRoutes);
+app.use("/api/users", usersRoutes);
 
-app.get("/api/products/:id", (req, res) => {
-    const product = products.find((p) => p._id === req.params.id);
-    res.send(product);
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => {        //app.listen() starts the server and listens for incoming requests on the specified port.
     console.log(`Server is running on port ${port}`);

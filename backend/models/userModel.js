@@ -28,3 +28,10 @@ const userSchema = mongoose.Schema(
 
 const User = mongoose.model("User", userSchema);
 export default User
+
+// Benefits of timestamps: true:
+// Track creation time: The createdAt field is useful for knowing when the document was first created. For example, when a user registers on your platform.
+
+// Track update time: The updatedAt field automatically updates whenever the document is modified. This helps in tracking the latest changes made to the document.
+
+// No manual management: Without timestamps: true, you would have to manually add and update createdAt and updatedAt fields in your schema, as well as write code to handle updating updatedAt whenever the document changes.
